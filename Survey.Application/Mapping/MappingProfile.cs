@@ -20,8 +20,9 @@ namespace Survey.Application.Mapping
             CreateMap<OptionCreateDto, Option>();
             CreateMap<Option, OptionReadDto>();
 
-            // Update için
+            // Survey Update
             CreateMap<SurveyUpdateDto, Survey.Domain.Entities.Survey>();
         }
     }
 }
+

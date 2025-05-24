@@ -10,7 +10,12 @@ namespace Survey.Application.Services.Interfaces
         Task<IEnumerable<SurveyReadDto>> GetAllSurveysAsync();
         Task<SurveyReadDto?> GetSurveyByIdAsync(Guid id);
         Task<SurveyReadDto> CreateSurveyAsync(SurveyCreateDto surveyDto);
+        Task UpdateSurveyAsync(Guid id, SurveyUpdateDto updateDto);
         Task DeleteSurveyAsync(Guid id);
-        Task CreateSurveyAsync(Domain.Entities.Survey survey);
+        Task<PagedResult<SurveyReadDto>> GetPagedSurveysAsync(int pageNumber, int pageSize);
+        Task VoteAsync(VoteCreateDto voteDto);
+
+
     }
 }
+

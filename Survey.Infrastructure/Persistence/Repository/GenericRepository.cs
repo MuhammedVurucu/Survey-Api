@@ -53,6 +53,34 @@ namespace Survey.Infrastructure.Persistence.Repository
         {
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public async Task<IEnumerable<T>> GetPagedAsync(int pageNumber, int pageSize)
+        {
+            return await _dbSet
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+        }
+
+        public async Task<int> CountAsync()
+        {
+            return await _dbSet.CountAsync();
+        }
+
+        public async Task<IEnumerable<T>> GetPagedOrderedAsync<TKey>(int pageNumber, int pageSize, Expression<Func<T, TKey>> orderBy, bool descending = false)
+        {
+            var query = _dbSet.AsQueryable();
+
+            query = descending
+                ? query.OrderByDescending(orderBy)
+                : query.OrderBy(orderBy);
+
+            return await query
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+        }
+
     }
 }
 

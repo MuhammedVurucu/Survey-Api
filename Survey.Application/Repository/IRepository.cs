@@ -15,6 +15,14 @@ namespace Survey.Application.Repository
         void Update(T entity);
         void Delete(T entity);
 
+        Task<int> CountAsync();  // <-- Toplam veri sayısı
+
+        Task<IEnumerable<T>> GetPagedAsync(int pageNumber, int pageSize);
+        Task<IEnumerable<T>> GetPagedOrderedAsync<TKey>(int pageNumber, int pageSize, Expression<Func<T, TKey>> orderBy, bool descending = false);
+
+
         Task<bool> SaveChangesAsync();
+
+ 
     }
 }
