@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Survey.Application.DTOs
+namespace Survey.Application.DTOs.Update
 {
     public class SurveyUpdateDto
     {

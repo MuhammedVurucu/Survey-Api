@@ -5,8 +5,10 @@ using Survey.Application.Mapping;
 using Survey.Application.Repository;
 using Survey.Application.Services.Implemantations;
 using Survey.Application.Services.Interfaces;
+using Survey.Domain.Entities;
 using Survey.Infrastructure.Persistence;
 using Survey.Infrastructure.Persistence.Repository;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,12 +26,19 @@ builder.Services.AddControllers(options =>
     options.Filters.Add<GlobalExceptionFilter>();
 });
 
-// Repository & Service
+// Generic Repository kaydý (BU ÇOK ÖNEMLÝ)
 builder.Services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
-builder.Services.AddScoped<ISurveyService, SurveyService>();
+
+// Servisler
+builder.Services.AddScoped<ISurveyReaderService, SurveyReaderService>();
+builder.Services.AddScoped<ISurveyWriterService, SurveyWriterService>();
+builder.Services.AddScoped<ISurveyPaginationService, SurveyPaginationService>();
+builder.Services.AddScoped<IRepository<Option>, GenericRepository<Option>>();
+
+
 
 // AutoMapper
-builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
+builder.Services.AddAutoMapper(typeof(SurveyProfile).Assembly);
 
 // Swagger
 builder.Services.AddEndpointsApiExplorer();
@@ -49,3 +58,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
